@@ -1,107 +1,593 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ribbon Showcase</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rizwan Khan — Social Media Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #1a1a1a;
+      --border: #222222;
+      --orange: #f7931a;
+      --orange2: #ff6b00;
+      --text: #f0f0f0;
+      --muted: #888888;
+      --card: #141414;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #F9F9F9; font-family: sans-serif; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--orange); color: #000; border: none;
+      padding: 10px 22px; border-radius: 8px; font-size: 0.875rem;
+      font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(247,147,26,0.1); border: 1px solid rgba(247,147,26,0.25);
+      color: var(--orange); padding: 8px 16px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; margin-bottom: 32px;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange); animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+    }
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.95;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #ffffff 0%, #888888 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-name span {
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-tagline {
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--muted); font-weight: 400;
+      max-width: 560px; margin: 0 auto 48px;
+    }
+    .hero-tagline strong { color: var(--text); font-weight: 600; }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange); color: #000;
+      padding: 14px 32px; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 700;
+      text-decoration: none; transition: transform 0.2s, opacity 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      padding: 14px 32px; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--muted); transform: translateY(-2px); }
+    .hero-grid {
+      display: flex; gap: 40px; justify-content: center;
+      margin-top: 80px; flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+      padding: 24px 32px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      min-width: 140px;
+    }
+    .hero-stat-num {
+      font-size: 2rem; font-weight: 800;
+      color: var(--orange); letter-spacing: -0.03em;
+    }
+    .hero-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* SECTION SHARED */
+    section { padding: 100px 60px; max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 16px; line-height: 1.1;
+    }
+    .section-sub {
+      color: var(--muted); font-size: 1rem;
+      max-width: 560px; margin-bottom: 60px;
+    }
+    .divider {
+      height: 1px; background: var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center;
+    }
+    .about-avatar {
+      width: 260px; height: 260px; border-radius: 24px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7rem; overflow: hidden;
+      box-shadow: 0 40px 80px rgba(247,147,26,0.08);
+    }
+    .about-text p { color: var(--muted); margin-bottom: 20px; font-size: 1.05rem; }
+    .about-text p strong { color: var(--text); }
+    .about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .tag {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--muted); padding: 6px 14px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 500;
+    }
+
+    /* SERVICES */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .service-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .service-icon {
+      font-size: 2.2rem; margin-bottom: 20px;
+      width: 56px; height: 56px; border-radius: 14px;
+      background: rgba(247,147,26,0.1);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .service-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .service-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+
+    /* EXPERIENCE */
+    .experience-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 40px;
+      display: flex; gap: 32px; align-items: flex-start;
+      margin-bottom: 24px;
+      transition: border-color 0.3s;
+    }
+    .experience-card:hover { border-color: var(--orange); }
+    .exp-logo {
+      width: 60px; height: 60px; border-radius: 14px;
+      background: var(--bg3); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; flex-shrink: 0;
+    }
+    .exp-badge {
+      display: inline-block;
+      background: rgba(247,147,26,0.15); color: var(--orange);
+      font-size: 0.72rem; font-weight: 700; padding: 3px 10px;
+      border-radius: 100px; margin-bottom: 8px; letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .exp-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    .exp-company { color: var(--orange); font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+    .exp-period { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+    .exp-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+    .exp-skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .exp-skill {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--muted); padding: 5px 12px; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 500;
+    }
+
+    /* CONTENT */
+    .content-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .content-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 32px;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .content-card:hover { border-color: var(--orange); transform: translateY(-4px); }
+    .content-topic {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 12px;
+    }
+    .content-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+    .content-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+    .content-meta { margin-top: 20px; font-size: 0.78rem; color: var(--muted); display: flex; gap: 16px; }
+    .content-meta span { display: flex; align-items: center; gap: 4px; }
+
+    /* SOCIAL PROOF */
+    .proof-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px; margin-bottom: 60px;
+    }
+    .proof-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 28px;
+      text-align: center;
+    }
+    .proof-num { font-size: 2.2rem; font-weight: 800; color: var(--orange); letter-spacing: -0.03em; }
+    .proof-label { color: var(--muted); font-size: 0.82rem; margin-top: 6px; }
+
+    /* CONTACT */
+    #contact { text-align: center; }
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px; padding: 72px 60px;
+      max-width: 700px; margin: 0 auto;
+    }
+    .contact-box h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 16px;
+    }
+    .contact-box p { color: var(--muted); font-size: 1rem; margin-bottom: 40px; }
+    .social-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .social-link {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); padding: 12px 24px; border-radius: 10px;
+      text-decoration: none; font-size: 0.875rem; font-weight: 600;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .social-link:hover { border-color: var(--orange); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 40px 60px;
+      color: var(--muted); font-size: 0.85rem;
+    }
+    footer span { color: var(--orange); }
+
+    /* GLOW BG */
+    .glow {
+      position: absolute; border-radius: 50%;
+      filter: blur(120px); opacity: 0.12; pointer-events: none;
+    }
+    .glow-1 { width: 600px; height: 600px; background: var(--orange); top: -200px; left: -200px; }
+    .glow-2 { width: 400px; height: 400px; background: #ff6b00; bottom: -100px; right: -100px; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-box { padding: 40px 24px; }
+    }
   </style>
 </head>
 <body>
-  <div id="root"></div>
-  <script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@18.3.1",
-      "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
-      "framer-motion": "https://esm.sh/framer-motion@11.11.17",
-      "ogl": "https://esm.sh/ogl@0.0.117"
-    }
-  }
-  </script>
-  <script type="module">
-    import React, { useEffect, useRef, useState } from 'react';
-    import { createRoot } from 'react-dom/client';
-    import { motion, AnimatePresence } from 'framer-motion';
-    import { Renderer, Transform, Vec3, Color, Polyline } from 'ogl';
 
-    const Ribbons = ({ colors = ['#ff9346','#7cff67','#ffee51','#5227FF'], baseSpring = 0.03, baseFriction = 0.9, baseThickness = 30, offsetFactor = 0.05, maxAge = 500, pointCount = 50, speedMultiplier = 0.6, enableFade = false, enableShaderEffect = false, effectAmplitude = 2, backgroundColor = [0,0,0,0] }) => {
-      const containerRef = useRef(null);
-      useEffect(() => {
-        const container = containerRef.current;
-        if (!container) return;
-        const renderer = new Renderer({ dpr: window.devicePixelRatio || 2, alpha: true });
-        const gl = renderer.gl;
-        gl.clearColor(...backgroundColor);
-        gl.canvas.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%';
-        container.appendChild(gl.canvas);
-        const scene = new Transform();
-        const lines = [];
-        const vertex = `precision highp float;attribute vec3 position,next,prev;attribute vec2 uv;attribute float side;uniform vec2 uResolution;uniform float uDPR,uThickness,uTime,uEnableShaderEffect,uEffectAmplitude;varying vec2 vUV;vec4 getPosition(){vec4 cur=vec4(position,1.);vec2 asp=vec2(uResolution.x/uResolution.y,1.);vec2 ns=next.xy*asp,ps=prev.xy*asp;vec2 tan=normalize(ns-ps),nor=vec2(-tan.y,tan.x);nor/=asp;nor*=mix(1.,.1,pow(abs(uv.y-.5)*2.,2.));nor*=smoothstep(0.,.02,length(ns-ps));float pwr=1./(uResolution.y/uDPR);nor*=cur.w*pwr*uThickness;cur.xy-=nor*side;if(uEnableShaderEffect>.5)cur.xy+=nor*sin(uTime+cur.x*10.)*uEffectAmplitude;return cur;}void main(){vUV=uv;gl_Position=getPosition();}`;
-        const fragment = `precision highp float;uniform vec3 uColor;uniform float uOpacity,uEnableFade;varying vec2 vUV;void main(){float f=uEnableFade>.5?1.-smoothstep(0.,1.,vUV.y):1.;gl_FragColor=vec4(uColor,uOpacity*f);}`;
-        const resize = () => { if(!container)return; renderer.setSize(container.clientWidth,container.clientHeight); lines.forEach(l=>l.polyline.resize()); };
-        window.addEventListener('resize', resize);
-        const center = (colors.length-1)/2;
-        colors.forEach((color,i) => {
-          const pts = Array.from({length:pointCount},()=>new Vec3());
-          const line = { spring: baseSpring+(Math.random()-.5)*.05, friction: baseFriction+(Math.random()-.5)*.05, mouseVelocity: new Vec3(), mouseOffset: new Vec3((i-center)*offsetFactor+(Math.random()-.5)*.01,(Math.random()-.5)*.1,0), points: pts, polyline: null };
-          line.polyline = new Polyline(gl,{points:pts,vertex,fragment,uniforms:{uColor:{value:new Color(color)},uThickness:{value:baseThickness+(Math.random()-.5)*3},uOpacity:{value:1},uTime:{value:0},uEnableShaderEffect:{value:enableShaderEffect?1:0},uEffectAmplitude:{value:effectAmplitude},uEnableFade:{value:enableFade?1:0}}});
-          line.polyline.mesh.setParent(scene);
-          lines.push(line);
-        });
-        resize();
-        const mouse = new Vec3();
-        const updateMouse = e => {
-          const rect = container.getBoundingClientRect();
-          const t = e.changedTouches?.[0] || e;
-          mouse.set((t.clientX-rect.left)/container.clientWidth*2-1,(t.clientY-rect.top)/container.clientHeight*-2+1,0);
-        };
-        container.addEventListener('mousemove',updateMouse);
-        container.addEventListener('touchstart',updateMouse,{passive:false});
-        container.addEventListener('touchmove',updateMouse,{passive:false});
-        let fId, last=performance.now();
-        const update = () => {
-          fId=requestAnimationFrame(update);
-          const now=performance.now(), dt=now-last; last=now;
-          lines.forEach(l=>{
-            const tmp=new Vec3(); tmp.copy(mouse).add(l.mouseOffset).sub(l.points[0]).multiply(l.spring);
-            l.mouseVelocity.add(tmp).multiply(l.friction); l.points[0].add(l.mouseVelocity);
-            for(let i=1;i<l.points.length;i++) l.points[i].lerp(l.points[i-1],Math.min(1,dt*speedMultiplier/(maxAge/(l.points.length-1))));
-            if(l.polyline.mesh.program.uniforms.uTime) l.polyline.mesh.program.uniforms.uTime.value=now*.001;
-            l.polyline.updateGeometry();
-          });
-          renderer.render({scene});
-        };
-        update();
-        return () => {
-          window.removeEventListener('resize',resize);
-          container.removeEventListener('mousemove',updateMouse);
-          cancelAnimationFrame(fId);
-          if(gl.canvas.parentNode===container) container.removeChild(gl.canvas);
-        };
-      }, []);
-      return React.createElement('div',{ref:containerRef,style:{position:'relative',width:'100%',height:'100%',cursor:'none'}});
-    };
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">Rizwan<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#content">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Let's Talk</a>
+  </nav>
 
-    function App() {
-      const [hovered, setHovered] = useState(false);
-      return React.createElement('div',{style:{minHeight:'100vh',background:'#F9F9F9',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px'}},
-        React.createElement(motion.div,{initial:{opacity:0,y:20},animate:{opacity:1,y:0},transition:{duration:.6,ease:[.19,1,.22,1]},style:{position:'relative',width:'100%',maxWidth:'896px',aspectRatio:'16/9',background:'white',borderRadius:'2rem',boxShadow:'0 40px 80px rgba(0,0,0,.05)',overflow:'hidden'},onMouseEnter:()=>setHovered(true),onMouseLeave:()=>setHovered(false)},
-          React.createElement('div',{style:{position:'absolute',inset:0,zIndex:0}},
-            React.createElement(Ribbons,{baseThickness:40,colors:['#1A1A1B'],speedMultiplier:.5,maxAge:600,enableFade:true,enableShaderEffect:true,effectAmplitude:1.5,backgroundColor:[0,0,0,0]})
-          ),
-          React.createElement('div',{style:{position:'absolute',inset:0,zIndex:10,display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',pointerEvents:'none',textAlign:'center',padding:'48px'}},
-            React.createElement(motion.h1,{initial:{opacity:0},animate:{opacity:1},transition:{delay:.4,duration:.8},style:{fontSize:'2.5rem',fontWeight:500,letterSpacing:'-.05em',color:'#1A1A1B',marginBottom:'8px'}},'Fluid Motion'),
-            React.createElement(motion.p,{initial:{opacity:0},animate:{opacity:1},transition:{delay:.6,duration:.8},style:{color:'#888'}},'A Minimalist WebGL Ribbon Showcase')
-          ),
-          React.createElement(AnimatePresence,null,hovered&&React.createElement(motion.button,{key:'btn',initial:{opacity:0,scale:.9,y:10},animate:{opacity:1,scale:1,y:0},exit:{opacity:0,scale:.9,y:10},transition:{duration:.3},onClick:()=>window.location.reload(),style:{position:'absolute',bottom:'32px',right:'32px',zIndex:20,padding:'12px 24px',background:'#1A1A1B',color:'white',borderRadius:'9999px',fontSize:'.875rem',border:'none',cursor:'pointer'}},'Replay Animation')),
-          React.createElement(motion.div,{style:{position:'absolute',bottom:0,left:0,height:'4px',background:'#1A1A1B',width:'100%',transformOrigin:'left'},initial:{scaleX:0},animate:{scaleX:hovered?1:0},transition:{duration:.6,ease:[.19,1,.22,1]}})
-        )
-      );
-    }
-    createRoot(document.getElementById('root')).render(React.createElement(App));
-  </script>
+  <!-- HERO -->
+  <div id="hero" style="padding-top:120px;">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="hero-badge">Social Media Manager @ Cointelegraph</div>
+    <h1 class="hero-name">Rizwan<br/><span>Khan</span></h1>
+    <p class="hero-tagline">Marketing <strong>memes to metaverse</strong> — I build crypto communities that grow faster than the market moves.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#contact">Let's Work Together</a>
+      <a class="btn-secondary" href="#services">See What I Do</a>
+    </div>
+    <div class="hero-grid">
+      <div class="hero-stat">
+        <div class="hero-stat-num">1,919+</div>
+        <div class="hero-stat-label">Posts on X</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">12K+</div>
+        <div class="hero-stat-label">LinkedIn Followers</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">500+</div>
+        <div class="hero-stat-label">Connections</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">Web3</div>
+        <div class="hero-stat-label">Community Builder</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div>
+        <div class="about-avatar">👤</div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag">About Me</div>
+        <h2 class="section-title">Marketer. Storyteller.<br/>Web3 Native.</h2>
+        <p>I'm <strong>Rizwan Khan</strong>, a Social Media Manager at <strong>Cointelegraph</strong> — one of the world's leading crypto media companies. Based in <strong>Dubai, UAE</strong>, I've been deep in the Web3 space since 2018.</p>
+        <p>My edge? I don't just post content — I build <strong>narratives that convert</strong>. From on-chain analysis threads to community growth strategies, I turn complex crypto stories into content people actually read.</p>
+        <p>Educated at <strong>Central University of Rajasthan, Jaipur</strong>. Obsessed with the intersection of culture, memes, and money.</p>
+        <div class="about-tags">
+          <span class="tag">🇦🇪 Dubai, UAE</span>
+          <span class="tag">Web3 Native</span>
+          <span class="tag">Since 2018</span>
+          <span class="tag">Progress, not perfection</span>
+          <span class="tag">Open to Work</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-tag">What I Do</div>
+    <h2 class="section-title">Services</h2>
+    <p class="section-sub">End-to-end social media and marketing services built for Web3 brands, crypto projects, and blockchain communities.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <div class="service-title">Social Media Marketing</div>
+        <div class="service-desc">Full social media management across X, LinkedIn, and more. Content calendars, engagement strategy, and growth campaigns tailored for crypto audiences.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚀</div>
+        <div class="service-title">Community Growth</div>
+        <div class="service-desc">Build and grow thriving Web3 communities. I can make your crypto community grow faster than Covid — no fluff, just results.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✍️</div>
+        <div class="service-title">Content Strategy</div>
+        <div class="service-desc">Strategic content planning from narrative development to distribution. Long-form threads, explainers, on-chain analysis — all crafted for maximum reach.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎯</div>
+        <div class="service-title">Brand Marketing</div>
+        <div class="service-desc">Position your Web3 project with a brand voice that resonates. From tone-of-voice guides to launch campaigns, I build brands people remember.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <div class="service-title">Growth Marketing</div>
+        <div class="service-desc">Data-informed growth strategies that actually move the needle. Audience building, funnel optimisation, and retention frameworks for blockchain projects.</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🧠</div>
+        <div class="service-title">Social Media Strategy</div>
+        <div class="service-desc">A clear roadmap of what your goal is and how to achieve it. Custom strategies that align with your project's milestones and community expectations.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-tag">Experience</div>
+    <h2 class="section-title">Where I've Worked</h2>
+    <p class="section-sub">Building at the intersection of media, marketing, and blockchain.</p>
+    <div class="experience-card">
+      <div class="exp-logo">🔶</div>
+      <div>
+        <div class="exp-badge">Current Role</div>
+        <div class="exp-title">Social Media Manager</div>
+        <div class="exp-company">Cointelegraph</div>
+        <div class="exp-period">📍 Dubai, UAE</div>
+        <div class="exp-desc">Managing social media presence for one of the world's most recognised crypto media brands. Covering breaking on-chain stories, DeFi developments, Bitcoin halvings, institutional moves, and major market events — turning complex blockchain narratives into content that millions engage with daily.</div>
+        <div class="exp-skills">
+          <span class="exp-skill">On-Chain Analysis</span>
+          <span class="exp-skill">Content Strategy</span>
+          <span class="exp-skill">Community Management</span>
+          <span class="exp-skill">DeFi</span>
+          <span class="exp-skill">Bitcoin</span>
+          <span class="exp-skill">Web3</span>
+          <span class="exp-skill">Breaking News</span>
+        </div>
+      </div>
+    </div>
+    <div class="experience-card">
+      <div class="exp-logo">🎓</div>
+      <div>
+        <div class="exp-badge">Education</div>
+        <div class="exp-title">Bachelor's Degree</div>
+        <div class="exp-company">Central University of Rajasthan, Jaipur</div>
+        <div class="exp-period">📍 Jaipur, India</div>
+        <div class="exp-desc">Built a strong foundation in communication, strategy, and analytical thinking — skills that translate directly into building high-impact marketing campaigns in the crypto space.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTENT / FEATURED WORK -->
+  <section id="content">
+    <div class="section-tag">Featured Work</div>
+    <h2 class="section-title">Content That Hits</h2>
+    <p class="section-sub">A selection of threads and posts that showcase how I break down crypto stories for mass audiences.</p>
+    <div class="content-grid">
+      <div class="content-card">
+        <div class="content-topic">🔴 DeFi Analysis</div>
+        <div class="content-title">WLFI's $401M Self-Referential Lending: An On-Chain Investigation</div>
+        <div class="content-desc">A deep-dive into World Liberty Financial using its own tokens as collateral on a platform co-founded by its own advisor — drawing direct parallels to the FTX collapse. Structurally rigorous, publicly verifiable.</div>
+        <div class="content-meta">
+          <span>🔗 LinkedIn</span><span>📊 On-Chain</span>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-topic">₿ Bitcoin History</div>
+        <div class="content-title">Bitcoin's Halving Events: The Mechanism Behind Every Bull Run</div>
+        <div class="content-desc">A full historical record of all four Bitcoin halvings — price data, market reactions, and what the 2024 halving tells us about cycle theory. Clear, educational, shareable.</div>
+        <div class="content-meta">
+          <span>🔗 LinkedIn</span><span>📅 Educational Thread</span>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-topic">🌐 Web3 Marketing</div>
+        <div class="content-title">How Reddit Onboarded Millions into Web3 Without Saying "Web3"</div>
+        <div class="content-desc">A breakdown of Reddit's genius Trojan Horse NFT strategy — avatars, no jargon, just vibes. A masterclass in how mass Web3 adoption actually happens.</div>
+        <div class="content-meta">
+          <span>🔗 LinkedIn</span><span>💡 Case Study</span>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-topic">🏦 Institutional Crypto</div>
+        <div class="content-title">Jack Mallers & Twenty One Capital: Wall Street's Bitcoin Bet</div>
+        <div class="content-desc">A story-driven profile of how a 30-year-old dropout launched a $3.6B Nasdaq-listed company backed by Tether, SoftBank, and Cantor Fitzgerald — and what it means for institutional Bitcoin adoption.</div>
+        <div class="content-meta">
+          <span>🔗 LinkedIn</span><span>🏛️ Institutional</span>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-topic">🐕 Crypto Culture</div>
+        <div class="content-title">How One Elon Musk Tweet Added $10B to Dogecoin Overnight</div>
+        <div class="content-desc">Documenting the most extreme case of narrative-driven market movement in crypto history — and what it proves about meme power, market efficiency, and retail behavior.</div>
+        <div class="content-meta">
+          <span>🔗 LinkedIn</span><span>🔥 Viral Thread</span>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="content-topic">💸 Recovery Story</div>
+        <div class="content-title">Mt. Gox: 850,000 BTC Vanished in 2014 — Victims Finally Got It Back</div>
+        <div class="content-desc">The full Mt. Gox story — from handling 70% of global Bitcoin volume to collapse, a decade of legal battles, and the emotional 2024 repayments. The origin of "not your keys, not your coins."</div>
+        <div class="content-meta">
+          <span>🔗 LinkedIn</span><span>📖 Long-form</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SOCIAL PROOF -->
+  <section id="proof">
+    <div class="section-tag">By the Numbers</div>
+    <h2 class="section-title">The Track Record</h2>
+    <p class="section-sub">Metrics that reflect real reach, real engagement, and real community impact.</p>
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-num">1,919+</div>
+        <div class="proof-label">Posts on X (Twitter)</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">613</div>
+        <div class="proof-label">X Followers</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">12.5K+</div>
+        <div class="proof-label">LinkedIn Followers</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">500+</div>
+        <div class="proof-label">LinkedIn Connections</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">360</div>
+        <div class="proof-label">Profile Views / Week</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-num">2018</div>
+        <div class="proof-label">In Crypto Since</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-box">
+      <div class="section-tag" style="text-align:center;">Get In Touch</div>
+      <h2>Let's Build Something<br/>in Web3 Together</h2>
+      <p>Whether you're a crypto project, blockchain startup, or Web3 brand — send me a DM and let's craft a winning strategy.</p>
+      <div class="social-links">
+        <a class="social-link" href="https://x.com/rizz1901" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          @rizz1901
+        </a>
+        <a class="social-link" href="https://linkedin.com/in/rizwanweb3" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a class="social-link btn-primary" href="https://x.com/rizz1901" target="_blank" style="background:var(--orange);color:#000;border-color:var(--orange);">
+          💬 Send a DM
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>Rizwan Khan</span> · Social Media Manager · Dubai, UAE · Built with 🧡</p>
+  </footer>
+
 </body>
 </html>
